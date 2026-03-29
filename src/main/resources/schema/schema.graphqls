@@ -1,0 +1,27 @@
+type Query{
+    userById(id:ID) : User
+    userByUsername(username: String!): User
+}
+
+
+type Mutation {
+    registerUser(input: RegisterInput!): User
+}
+
+input RegisterInput {
+    username: String!
+    password: String!
+    role: Role
+}
+
+type User{
+    id: ID!
+    username: String!
+    role: Role
+}
+
+enum Role {
+    USER
+    ADMIN
+    MANAGER
+}
