@@ -1,15 +1,22 @@
 type Query{
     userById(id:ID) : User
     userByUsername(username: String!): User
+
 }
 
 
 type Mutation {
     registerUser(input: RegisterInput!): User
+    login(username: String!, password: String!): AuthResponse!
+}
+
+type AuthResponse {
+    token: String!
+    user: User!
 }
 
 input RegisterInput {
-    username: String!
+    userName: String!
     password: String!
     role: Role
 }

@@ -4,6 +4,7 @@ import com.netflix.graphql.dgs.DgsComponent;
 import com.netflix.graphql.dgs.DgsMutation;
 import com.netflix.graphql.dgs.DgsQuery;
 import com.netflix.graphql.dgs.InputArgument;
+import com.user.user_service.dtos.AuthResponse;
 import com.user.user_service.dtos.RegisterInput;
 import com.user.user_service.entity.User;
 import com.user.user_service.service.AuthService;
@@ -36,5 +37,10 @@ public class UserDataFetcher {
                 input.password(),
                 input.role()
         );
+    }
+
+    @DgsMutation
+    public AuthResponse login(@InputArgument String username, @InputArgument String password) {
+        return authService.login(username, password);
     }
 }

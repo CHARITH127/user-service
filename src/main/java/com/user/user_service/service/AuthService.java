@@ -1,6 +1,7 @@
 package com.user.user_service.service;
 
 import com.user.user_service.constraint.Role;
+import com.user.user_service.dtos.AuthResponse;
 import com.user.user_service.entity.User;
 
 import java.util.UUID;
@@ -11,4 +12,6 @@ public interface AuthService {
     User findByUserId(UUID userId);
 
     User findByUserName(String userName);
+
+    AuthResponse login(String username, String password);
 }
