@@ -1,9 +1,11 @@
 package com.user.user_service.service.impl;
 
 import com.user.user_service.constraint.Role;
+import com.user.user_service.dtos.AuthResponse;
 import com.user.user_service.entity.User;
 import com.user.user_service.repository.UserRepository;
 import com.user.user_service.service.AuthService;
+import com.user.user_service.util.JwtService;
 import jakarta.transaction.Transactional;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.crypto.password.PasswordEncoder;
@@ -18,6 +20,8 @@ public class AuthServiceImpl implements AuthService {
     private UserRepository userRepository;
     @Autowired
     private PasswordEncoder passwordEncoder;
+    @Autowired
+    private JwtService jwtService;
 
     @Transactional
     public User register(String username, String password, Role role) {
@@ -41,5 +45,16 @@ public class AuthServiceImpl implements AuthService {
 
     public User findByUserName(String userName) {
         return userRepository.findByUsername(userName).orElseThrow(() -> new RuntimeException("Cannot find user"));
+    }
+
+    public AuthResponse login(String username, String password) {
+        User user = findByUserName(username);
+        if (user == null) {
+            if (!passwordEncoder.matches(password, user.getPassword())) {
+                throw new RuntimeException("Invalid username or password");
+            }
+        }
+        String token = jwtService.generateToken(username);
+        return new AuthResponse(token, user);
     }
 }
