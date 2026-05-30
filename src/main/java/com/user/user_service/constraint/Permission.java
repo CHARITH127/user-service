@@ -3,15 +3,14 @@ package com.user.user_service.constraint;
 import lombok.Getter;
 
 @Getter
-public enum Role {
-    USER("Standard User"),
-    ADMIN("System Administrator"),
-    MANAGER("General Manager");
+public enum Permission {
+    USER_READ("Read User"),
+    USER_REMOVE("Remove User"),
+    REPORT_EXPORT("Report Export"),;
 
     private final String displayName;
 
-    Role(String displayName) {
+    Permission(String displayName) {
         this.displayName = displayName;
     }
-
 }

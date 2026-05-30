@@ -49,7 +49,7 @@ public class AuthServiceImpl implements AuthService {
 
     public AuthResponse login(String username, String password) {
         User user = findByUserName(username);
-        if (user == null) {
+        if (user != null) {
             if (!passwordEncoder.matches(password, user.getPassword())) {
                 throw new RuntimeException("Invalid username or password");
             }
